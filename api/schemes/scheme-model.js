@@ -25,8 +25,28 @@ function find() {
     .groupBy("schemes.scheme_id");
 }
 
-function findById(scheme_id) {
-  // EXERCISE B
+async function findById(scheme_id) {
+  try {
+    const array = await db("schemes")
+      .leftJoin("steps", "steps.scheme_id", "schemes.scheme_id")
+      .select(
+        "schemes.scheme_name",
+        "steps.step_id",
+        "steps.step_number",
+        "steps.instructions",
+        "steps.scheme_id"
+      )
+      .where({ "steps.scheme_id": scheme_id })
+      .orderBy("steps.step_number");
+    if (array.length === 0) {
+      console.log("empty");
+    } else {
+      console.log(array.length);
+    }
+  } catch (err) {
+    console.log(err, "inside error");
+  }
+
   /*
     1B- Study the SQL query below running it in SQLite Studio against `data/schemes.db3`:
 
@@ -39,32 +59,31 @@ function findById(scheme_id) {
       WHERE sc.scheme_id = 1
       ORDER BY st.step_number ASC;
 
-    2B- When you have a grasp on the query go ahead and build it in Knex
-    making it parametric: instead of a literal `1` you should use `scheme_id`.
+    // 2B- When you have a grasp on the query go ahead and build it in Knex
+    // making it parametric: instead of a literal `1` you should use `scheme_id`.
 
-    3B- Test in Postman and see that the resulting data does not look like a scheme,
-    but more like an array of steps each including scheme information:
+    // 3B- Test in Postman and see that the resulting data does not look like a scheme,
+    // but more like an array of steps each including scheme information:
 
-      [
-        {
-          "scheme_id": 1,
-          "scheme_name": "World Domination",
-          "step_id": 2,
-          "step_number": 1,
-          "instructions": "solve prime number theory"
-        },
-        {
-          "scheme_id": 1,
-          "scheme_name": "World Domination",
-          "step_id": 1,
-          "step_number": 2,
-          "instructions": "crack cyber security"
-        },
+      // [
+      //   {
+      //     "scheme_id": 1,
+      //     "scheme_name": "World Domination",
+      //     "step_id": 2,
+      //     "step_number": 1,
+      //     "instructions": "solve prime number theory"
+      //   },
+      //   {
+      //     "scheme_id": 1,
+      //     "scheme_name": "World Domination",
+      //     "step_id": 1,
+      //     "step_number": 2,
+      //     "instructions": "crack cyber security"
+      //   },
         // etc
-      ]
+      // ]
 
-    4B- Using the array obtained and vanilla JavaScript, create an object with
-    the structure below, for the case _when steps exist_ for a given `scheme_id`:
+    4B- Using the array obtained and vanilla JavaScript, create an object with the structure below, for the case _when steps exist_ for a given `scheme_id`:
 
       {
         "scheme_id": 1,
@@ -95,11 +114,20 @@ function findById(scheme_id) {
 }
 
 function findSteps(scheme_id) {
+  return db("schemes").leftJoin(
+    "steps",
+    "steps.scheme_id",
+    "schemes.scheme_id"
+  )
+    .select('steps.step_id', 'steps.step_number', 'steps.instructions', 'schemes.scheme_name')
+    .where({'schemes.scheme_id': scheme_id})
+    .orderBy('steps.step_number')
   // EXERCISE C
   /*
     1C- Build a query in Knex that returns the following data.
-    The steps should be sorted by step_number, and the array
-    should be empty if there are no steps for the scheme:
+    The steps should be 
+    [[[sorted by step_number]]]
+    and the array should be empty if there are no steps for the scheme:
 
       [
         {
