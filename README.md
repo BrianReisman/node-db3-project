@@ -1,4 +1,4 @@
-# Node DB3 Project Starter Code
+<!-- # Node DB3 Project Starter Code
 
 ## Instructions
 
@@ -19,13 +19,13 @@ There are two possible ways to submit your project. Your instructor should have 
 - [ ] Fork and clone the repository.
 - [ ] Implement your project in a `firstname-lastname` branch.
 - [ ] Create a pull request of `firstname-lastname` against your `main` branch.
-- [ ] Open the assignment in Canvas and submit your pull request.
+- [ ] Open the assignment in Canvas and submit your pull request. -->
 
 ### Task 2: Minimum Viable Product
 
 For this project you will:
 
-- write **SQL statements** against the `northwind.db3` database.
+<!-- - write **SQL statements** against the `northwind.db3` database. -->
 - write the **middleware functions** for the schemes router in `api/schemes/scheme-middleware.js`.
 - write the **db helper functions** for the schemes resource in `api/schemes/scheme-model.js`.
 
@@ -74,7 +74,7 @@ Write db access functions in `api/schemes/scheme-model.js` following the instruc
 | step_number  | unsigned integer | required                                           |
 | instructions | string           | required                                           |
 
-#### API
+<!-- #### API
 
 Open `api/schemes/scheme-router.js` and study the specification for each endpoint.
 
@@ -84,25 +84,22 @@ You do not need to make any changes to this file.
 - `[GET] /api/schemes/:scheme_id`
 - `[GET] /api/schemes/:scheme_id/steps`
 - `[POST] /api/schemes`
-- `[POST] /api/schemes/:scheme_id/steps`
+- `[POST] /api/schemes/:scheme_id/steps` -->
 
-#### Notes
-
+<!-- #### Notes -->
 - Run tests locally executing `npm test`.
-- Reset the data in the `data/schemes.db3` database executing `npm run seed`.
+<!-- - Reset the data in the `data/schemes.db3` database executing `npm run seed`.
 - You are welcome to create additional files but **do not move or rename existing files** or folders.
 - Do not alter your `package.json` file except to install additional libraries or add additional scripts.
 - In your solution, it is essential that you follow best practices and produce clean and professional results.
 - Schedule time to review, refine, and assess your work.
-- Perform basic professional polishing including spell-checking and grammar-checking on your work.
+- Perform basic professional polishing including spell-checking and grammar-checking on your work. -->
 
-### Task 3: Stretch Problems
-
+<!-- ### Task 3: Stretch Problems
 In [SQL Try Editor at W3Schools.com](https://www.w3schools.com/Sql/tryit.asp?filename=trysql_select_top):
-
 - Find the number of shipments by each shipper.
 - Find the top 5 best performing employees measured in number of orders.
 - Find the top 5 best performing employees measured in revenue.
 - Find the category that brings in the least revenue.
 - Find the customer country with the most orders.
-- Find the shipper that moves the most cheese measured in units.
+- Find the shipper that moves the most cheese measured in units. -->
