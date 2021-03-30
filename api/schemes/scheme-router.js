@@ -7,7 +7,6 @@ const router = express.Router()
 
 /**
   [GET] /api/schemes
-
   response:
   [
     {
