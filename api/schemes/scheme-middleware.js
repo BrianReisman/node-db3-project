@@ -7,8 +7,8 @@
   }
 */
 const checkSchemeId = (req, res, next) => {
-next()
-}
+  next();
+};
 
 /*
 If `scheme_name` is missing, empty string or not a string:
@@ -19,9 +19,14 @@ status 400
 }
 */
 const validateScheme = (req, res, next) => {
-  next()
-  
-}
+  if (req.body.scheme_name == "" || !req.body.scheme_name) {
+    res.status(400).json({
+      message: "invalid scheme_name",
+    });
+  } else {
+    next();
+  }
+};
 
 /*
 If `instructions` is missing, empty string or not a string, or
@@ -33,12 +38,21 @@ status 400
 }
 */
 const validateStep = (req, res, next) => {
-  next()
-
-}
+  const { instructions, step_number } = req.body;
+  if (
+    !instructions ||
+    !step_number ||
+    typeof step_number !== "number" ||
+    step_number < 1
+  ) {
+    res.status(400).json({ message: "invalid step" });
+  } else {
+    next();
+  }
+};
 
 module.exports = {
   checkSchemeId,
   validateScheme,
   validateStep,
-}
+};

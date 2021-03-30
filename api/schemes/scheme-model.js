@@ -40,9 +40,9 @@ async function findById(scheme_id) {
       .where({ "steps.scheme_id": scheme_id })
       .orderBy("steps.step_number");
     if (array.length === 0) {
-      console.log("empty");
+      return []
     } else {
-      console.log(array.length);
+      console.log("inside findById -model", array.length);
     }
   } catch (err) {
     console.log(err, "inside error");
@@ -150,28 +150,30 @@ function findSteps(scheme_id) {
 }
 
 async function add(scheme) {
-  const newSchemeId = await db("schemes")
-    .insert(scheme) //*scheme is passed in as req.body = {}
-    // .first(); //? remove?
+  const newSchemeId = await db("schemes").insert(scheme); //*scheme is passed in as req.body = {}
+  // .first(); //? remove?
   // EXERCISE D
 
   return {
-    "scheme_id": newSchemeId[0],
-    "scheme_name": scheme.scheme_name
-
-  }
+    scheme_id: newSchemeId[0],
+    scheme_name: scheme.scheme_name,
+  };
   /*
     1D- This function creates a new scheme and resolves to _the newly created scheme_.
   */
 }
 
-function addStep(scheme_id, step) {
+async function addStep(scheme_id, step) {
   // EXERCISE E
   /*
     1E- This function adds a step to the scheme with the given `scheme_id`
     and resolves to _all the steps_ belonging to the given `scheme_id`,
     including the newly created one.
   */
+
+  const idOfNewStep = await db("steps").insert({ ...step, scheme_id });
+
+  return findSteps(scheme_id);
 }
 
 module.exports = {
