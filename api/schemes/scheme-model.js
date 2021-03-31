@@ -33,15 +33,18 @@ async function findById(scheme_id) {
       .select("steps.step_number", "steps.instructions", "steps.step_id")
       .where({ "steps.scheme_id": scheme_id })
       .orderBy("steps.step_number");
+    const name = await db("schemes").select("scheme_name").where({ scheme_id }).first()
 
     if (steps.length === 0) {
       return {
         scheme_id: scheme_id,
+        scheme_name: name.scheme_name,
         steps: [],
-      };    } else {
+      };
+    } else {
       return {
         scheme_id: scheme_id,
-        // scheme_name: "World Domination",
+        scheme_name: name.scheme_name,
         steps,
       };
     }
