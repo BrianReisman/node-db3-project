@@ -7,7 +7,6 @@ const router = express.Router()
 
 /**
   [GET] /api/schemes
-
   response:
   [
     {
@@ -101,10 +100,12 @@ router.get('/:scheme_id/steps', checkSchemeId, (req, res, next) => {
   }
 */
 router.post('/', validateScheme, (req, res, next) => {
+
   const scheme = req.body
 
   Schemes.add(scheme)
     .then(scheme => {
+      console.log(scheme)
       res.status(201).json(scheme)
     })
     .catch(next)
@@ -132,6 +133,7 @@ router.post('/', validateScheme, (req, res, next) => {
 router.post('/:scheme_id/steps', checkSchemeId, validateStep, (req, res, next) => {
   const step = req.body
   const { scheme_id } = req.params
+
 
   Schemes.addStep(scheme_id, step)
     .then(allSteps => {
